@@ -14,7 +14,8 @@ public class LeasingRealEstateAgentHandler {
           system.debug('leasingIds' + leasingIds);
           system.debug('realestateagentIds' + realestateagentIds);
 
-          for(Leasing_Real_Estate_Agent__c lr: [select id, Leasing__c,Real_Estate_Agent__c FROM Leasing_Real_Estate_Agent__c WHERE Leasing__c IN:leasingIds AND  Real_Estate_Agent__c IN: realestateagentIds]) {
+          for(Leasing_Real_Estate_Agent__c lr: [SELECT id, Leasing__c,Real_Estate_Agent__c FROM Leasing_Real_Estate_Agent__c
+                                                WHERE Leasing__c IN: leasingIds AND  Real_Estate_Agent__c IN: realestateagentIds]) {
 
             string systemKey = string.valueOf(lr.Leasing__c) + string.valueOf(lr.Real_Estate_Agent__c);
             Leasing_Real_Estate_Agent__c toBeFailed = LeasingRealEstateAgentMap.get(systemKey);

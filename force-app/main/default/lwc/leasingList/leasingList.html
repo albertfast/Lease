@@ -1,0 +1,11 @@
+<template>
+    <lightning-card variant="Narrow" title="Upcoming Events" icon-name="standard:agent_home">
+        <div class="slds-m-around_small">
+            <c-searcher
+                onsearch= {handleSearch}
+                cmp-label= {label}
+                is-required="true">
+            </c-searcher>
+        </div>
+    </lightning-card>
+</template>

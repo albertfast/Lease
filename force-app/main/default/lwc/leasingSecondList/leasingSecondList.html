@@ -1,0 +1,45 @@
+<template>
+    <lightning-card variant="Narrow" title="Upcoming Leasing" icon-name="standard:agent_home">
+
+        <div class="slds-m-around_small">
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+
+        <div class="slds-m-around_small">
+            <c-searcher
+                onsearch= {handleSearch}
+                cmp-label= "Leasing Name"
+                show-label="true">
+            </c-searcher>
+        </div>
+
+        &nbsp;
+
+        <lightning-input
+            type="datetime"
+            value={startDateTime}
+            onchange={handleStartDate}
+            label= "Start Date Time">
+        </lightning-input>
+
+        &nbsp;
+
+        <c-searcher
+                onsearch= {handleLocationSearch}
+                cmp-label= "Leasing Location"
+                show-label="true">
+            </c-searcher>
+
+        <div class="slds-m-around_small">
+            <lightning-datatable
+                key-field="id"
+                data={recordsToDisplay}
+                show-row-number-column
+                hide-checkbox-column
+                columns={columnsList}>
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+</template>
