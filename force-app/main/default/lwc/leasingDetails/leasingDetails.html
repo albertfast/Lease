@@ -1,0 +1,74 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-m-around_small">
+        <lightning-card variant="Narrow" title="Leasing Details" icon-name="standard:account">
+            <lightning-tabset variant="scoped" active-tab-value="leasing">
+
+                <!-- Leasing Detail Tab-->
+                <lightning-tab label="Leasing Details" value="leasing">
+                    <div class="slds-m-around_small">
+                        <lightning-record-form object-api-name="Leasing__c" record-id={recordId} mode="readonly"
+                            layout-type="Full" columns="2">
+                        </lightning-record-form>
+                    </div>
+                </lightning-tab>
+
+                <!-- Real Estate Agent Details  Tab-->
+                <lightning-tab label="Real Estate Agent" value="Real Estate Agent" onactive={handleRealEstateActive}>
+                    UserID : {userId} <br/>
+                    UserProfileName: {userProfileName}
+                    <lightning-button if:true={isAdmin} variant="brand" label="New Real Estate Agent"
+                        title="New Real Estate Agent" onclick={createRealEstateAgent}>
+                    </lightning-button>
+
+                    <br /><br />
+
+                    <template if:true={realEstateAgentList}>
+                        <template for:each={realEstateAgentList} for:item="realestate">
+                            <c-real-estate-agent realestate={realestate} key={realestate.Id}>
+                            </c-real-estate-agent>
+                        </template>
+                        <template if:false={errors}>
+                            <template if:false={realEstateAgentList}>
+                                There are no Real Estate Agent associated with the Leasing.
+                            </template>
+                        </template>
+                    </template>
+
+                </lightning-tab>
+
+                <!-- Location Detail Tab-->
+                <lightning-tab label="Location Details" value="location" onactive={handleLocationDetails}>
+                    <div class="slds-m-around_small">
+                        <template if:true={leasingRec}>
+                            Location Landmark - {leasingRec.Location__r.Land_Mark__c}
+                            <lightning-formatted-address city={leasingRec.Location__r.City__c}
+                                province={leasingRec.Location__r.State__c}
+                                postal-code={leasingRec.Location__r.Postal_Code__c}
+                                country={leasingRec.Location__r.Country__c} street={leasingRec.Location__r.Street__c}
+                                title="Leasing Location">
+                            </lightning-formatted-address>
+                        </template>
+                    </div>
+                </lightning-tab>
+
+                <!-- Leasing Potential Client Detail Tab-->
+                <lightning-tab label="Leasing Potential Client" value="Potential Client"
+                    onactive={handleLeasingPotClient}>
+                    <div class="slds-var-m-around_small">
+                        <lightning-button variant="brand" label="New Potential Client" title="New Potential Client"
+                            onclick={createPotClient}>
+                        </lightning-button>
+<!-- sldsValidatorIgnoreNextLine -->
+                        
+                        <lightning-datatable key-field="id" data={potClientList} show-row-number-column
+                            hide-checkbox-column columns={columnsList}>
+                        </lightning-datatable>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+
+        </lightning-card>
+    </div>
+
+</template>

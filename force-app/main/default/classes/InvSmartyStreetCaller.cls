@@ -1,32 +1,30 @@
 public with sharing class InvSmartyStreetCaller {
-
     @InvocableMethod(label='SmartyStreetAPI' description='Makes an HTTP GET to Smarty.com' category='Location__c')
     public static void getAccountNames(List<Id> locationIds) {
-        makeCallout(locationIds[0]);
+        for (Id locId : locationIds) {
+            makeCallout(locId);
+        }
     }
-
     @future(callout=true)
     private static void makeCallout(Id locId) {
          try {
-
             Location__c location = [ SELECT City__c, Postal_Code__c, State__c, Street__c FROM Location__c
                                     WHERE Id=: locId];    
-
-            String endpoint = 'https://us-street.api.smartystreets.com/street-address'
-            + '?auth-id=650c7f0f-e882-e981-d234-b314f8e0d218'
-            + '&auth-token=D3qAxS3x8aoeAYKMVzGU'
-            +'&street=' + location.Street__c
-            +'&city=' + location.City__c
-            +'&state=' + location.State__c
+            SmartStreetCreds__c setting = SmartStreetCreds__c.getOrgDefaults();                    
+            String path = '/street-address'
+            + '?auth-id=' + setting.Auth_Id__c
+            + '&auth-token=' + setting.Auth_Token__c
+            +'&street=' + EncodingUtil.urlEncode(location.Street__c, 'UTF-8')
+            +'&city=' + EncodingUtil.urlEncode(location.City__c, 'UTF-8')
+            +'&state=' + EncodingUtil.urlEncode(location.State__c, 'UTF-8')
             +'&zipcode=' + location.Postal_Code__c
-            +'&match=enhanced'
-            +'&license=us-rooftop-geocoding-cloud';
+            +'&match=enhanced';
 
-            System.debug('endpoint: ' + endpoint);  
+            System.debug('path: ' + path);  
 
             Http http = new Http();
             HttpRequest request = new HttpRequest();
-            request.setEndpoint(endpoint);
+            request.setEndpoint('callout:SmartStreetAPI' + path);
             request.setMethod('GET');
             HttpResponse response = http.send(request);
 
@@ -36,6 +34,10 @@ public with sharing class InvSmartyStreetCaller {
             String respBody = response.getBody();
             System.debug('response Body:' + respBody);
 
+            
+            update new Location__c(Id = locId,
+                                   Verified__c = statusCode == 200
+                                   );
           
          } catch (Exception exc) {
             String msg = exc.getMessage() + '(line: ' + exc.getLineNumber();
@@ -43,4 +45,8 @@ public with sharing class InvSmartyStreetCaller {
             ErrorLogHelper.createErrorLog('InvSmartyStreetCaller', 'makeCallout', msg);
          }
     }
+   
+
 }
+
+

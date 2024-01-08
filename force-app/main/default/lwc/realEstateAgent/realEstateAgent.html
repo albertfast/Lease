@@ -1,0 +1,34 @@
+<template>
+    
+    <template if:true={realestate}>
+        <lightning-layout vertical-align="center">
+            <lightning-layout-item>
+
+                <template if:true={realestate.Picture__c}>
+                    <img src={realestate.Picture__c} alt="Profile photo" />
+                </template>
+
+                <template if:false={realestate.Picture__c}>
+                    <img src= "https://img.freepik.com/premium-photo/blue-circle-with-man-s-head-circle-with-white-background_745528-3499.jpg" alt="Profile photo" />
+                </template>
+
+            </lightning-layout-item>
+
+            
+
+            <lightning-layout-item padding="around-small">
+                <p>{realestate.Name}</p>
+                <p>
+                    <lightning-formatted-email value={realestate.Email__c}></lightning-formatted-email>
+                </p>
+                <p>
+                    <lightning-formatted-rich-text value={realestate.AboutMe__c}></lightning-formatted-rich-text>
+                </p>
+            </lightning-layout-item>
+
+            
+        </lightning-layout>
+
+    </template>
+
+</template>  
