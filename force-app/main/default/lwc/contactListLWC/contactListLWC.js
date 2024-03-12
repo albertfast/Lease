@@ -1,9 +1,9 @@
 import { LightningElement, wire } from 'lwc';
 import getCon from '@salesforce/apex/ListOfContactController.getContactList';
 
-columns = [
-    {label: 'Contact Name', field: 'LastName'},
-    {label:'Email', field:'Email'}
+const columns = [
+    {label: 'Contact Name', fieldName: 'LastName'},
+    {label: 'Email', fieldName: 'Email'}
 ];
 
 export default class ContactListLWC extends LightningElement {
@@ -11,11 +11,12 @@ export default class ContactListLWC extends LightningElement {
     columns = columns;
 
     @wire(getCon)
-    wiredMethod(result){
-        if (result.data) {
-            this.data = result.data;
-        }else if(result.error){
-            console.error('Error', result.error);
+    wiredMethod({ error, data }) {
+        if (data) {
+            this.data = data;
+        } else if (error) {
+            console.error('Error', error);
         }
     }
 }
+
