@@ -59,7 +59,7 @@ public class WeatherDetailsClass {
                 if (res.getStatusCode() == 200) {
                     return res; // Successful response, exit the loop
                 } else {
-                    system.debug('Attempt ' + attempt + ' failed with status ' + res.getStatusCode() + '. Retrying...');
+                    system.debug('Attempt ' + attempt + ' failed  with status ' + res.getStatusCode() + '. Retrying...');
                 }
             } catch (Exception e) {
                 system.debug('Attempt ' + attempt + ' failed with exception: ' + e.getMessage() + '. Retrying...');
