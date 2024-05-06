@@ -1,4 +1,3 @@
-
 public with sharing class OpportunityTriggerHandler {
     public static void updateOpportunityPhone(List<Opportunity> newOpportunities) {
         Set<Id> accountIds = new Set<Id>();
