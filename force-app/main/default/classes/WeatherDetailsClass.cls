@@ -109,8 +109,3 @@ public class WeatherDetailsClass {
 }
 
 
-/*
-03:08:32:005 USER_DEBUG [10]|DEBUG|Endpoint URL=> callout:Open_Weather/data/2.5/weather?q=konya&units=metric&APPID=469d8eb56ad0031a1cfc8ea9f28c0b37
-05:36:43:012 USER_DEBUG [21]|DEBUG|Endpoint URL=> callout:Weather_API/data/2.5/weather?q=ankara&units=metric&APPID=469d8eb56ad0031a1cfc8ea9f28c0b37
-
-*/
