@@ -24,7 +24,7 @@ public with sharing class InvSmartyStreetCaller {
 
             Http http = new Http();
             HttpRequest request = new HttpRequest();
-            request.setEndpoint('callout:SmartStreetAPI' + path);
+            request.setEndpoint('callout:SecondSmarty' + path);
             request.setMethod('GET');
             HttpResponse response = http.send(request);
 
