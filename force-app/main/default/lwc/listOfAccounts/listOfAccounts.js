@@ -20,5 +20,3 @@ export default class ListOfAccounts extends LightningElement {
         }
     }
 }
-
-

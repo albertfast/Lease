@@ -4,5 +4,6 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
-  "salesforcedx-einstein-gpt.enableDebugLogging": true
+  "salesforcedx-einstein-gpt.enableDebugLogging": true,
+  "salesforcedx-vscode-slds.file.scopeWithInSFDX": true
 }

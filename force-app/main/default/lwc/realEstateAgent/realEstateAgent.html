@@ -12,10 +12,18 @@
                     <img src= "https://img.freepik.com/premium-photo/blue-circle-with-man-s-head-circle-with-white-background_745528-3499.jpg" alt="Profile photo" />
                 </template>
 
+                <p>{realestate.Name}</p>
+                <p>
+                    <lightning-formatted-email value={realestate.Email__c}></lightning-formatted-email>
+                </p>
+                <p>
+                    <lightning-formatted-rich-text value={realestate.AboutMe__c}></lightning-formatted-rich-text>
+                </p>
+
             </lightning-layout-item>
 
-            
-
+            <!--
+                
             <lightning-layout-item padding="around-small">
                 <p>{realestate.Name}</p>
                 <p>
@@ -26,9 +34,9 @@
                 </p>
             </lightning-layout-item>
 
-            
+            -->
         </lightning-layout>
 
     </template>
 
-</template>  
+</template>

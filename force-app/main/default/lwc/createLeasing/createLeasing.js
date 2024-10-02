@@ -2,7 +2,7 @@ import { LightningElement, track } from 'lwc';
 import { createRecord } from 'lightning/uiRecordApi';
 
 import Leasing_Object from '@salesforce/schema/Leasing__c';
-import Name__F from '@salesforce/schema/Leasing__c.Name__C';
+import Name__F from '@salesforce/schema/Leasing__c.Name__c';
 import Lease_Office_Manager__c from '@salesforce/schema/Leasing__c.Lease_Office_Manager__c';
 import Start_Date_Time__c from '@salesforce/schema/Leasing__c.Start_Date_Time__c';
 import End_Date_Time__c from '@salesforce/schema/Leasing__c.End_Date_Time__c';

@@ -1,0 +1,74 @@
+<template>
+    <lightning-card title="Merge Contacts">
+       <!-- Button to toggle duplicate list visibility -->
+       <lightning-button label={toggleButtonLabel} onclick={toggleDuplicateList} class="slds-m-bottom_medium"></lightning-button>
+       <!-- Button to trigger the merge process -->
+       <lightning-button label="Merge" onclick={handleMerge} class="slds-m-bottom_medium"></lightning-button>
+       <!-- Datatable to display possible duplicate contacts -->
+       <template lwc:if={showDuplicates}>
+          <lightning-datatable
+             key-field="Id"
+             data={contacts}
+             columns={columns}
+             onrowselection={handleCheckboxChange}>
+          </lightning-datatable>
+       </template>
+    </lightning-card>
+    <!-- Modal for selecting data to merge -->
+    <template if:true={showModal}>
+       <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+             <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Merge Contacts</h2>
+             </header>
+             <div class="slds-modal__content slds-p-around_medium">
+                <p>Select the data to keep for the merged contact:</p>
+                <div class="slds-grid slds-wrap">
+                   <!-- Radio group for selecting First Name -->
+                   <div class="slds-col slds-size_1-of-2">
+                      <lightning-radio-group
+                         label="First Name"
+                         options={firstNameOptions}
+                         value={mergedFirstName}
+                         onchange={handleFirstNameChange}>
+                      </lightning-radio-group>
+                   </div>
+                   <!-- Radio group for selecting Last Name -->
+                   <div class="slds-col slds-size_1-of-2">
+                      <lightning-radio-group
+                         label="Last Name"
+                         options={lastNameOptions}
+                         value={mergedLastName}
+                         onchange={handleLastNameChange}>
+                      </lightning-radio-group>
+                   </div>
+                   <!-- Radio group for selecting Email -->
+                   <div class="slds-col slds-size_1-of-2">
+                      <lightning-radio-group
+                         label="Email"
+                         options={emailOptions}
+                         value={mergedEmail}
+                         onchange={handleEmailChange}>
+                      </lightning-radio-group>
+                   </div>
+                   <!-- Radio group for selecting Phone -->
+                   <div class="slds-col slds-size_1-of-2">
+                      <lightning-radio-group
+                         label="Phone"
+                         options={phoneOptions}
+                         value={mergedPhone}
+                         onchange={handlePhoneChange}>
+                      </lightning-radio-group>
+                   </div>
+                </div>
+             </div>
+             <!-- Modal footer with Save and Cancel buttons -->
+             <footer class="slds-modal__footer">
+                <lightning-button label="Cancel" onclick={handleModalClose}></lightning-button>
+                <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+             </footer>
+          </div>
+       </section>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ </template>
