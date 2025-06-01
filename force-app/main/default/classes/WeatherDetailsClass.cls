@@ -79,15 +79,11 @@ public class WeatherDetailsClass {
             } catch (Exception e) {
                 system.debug('Attempt ' + attempt + ' failed with exception: ' + e.getMessage() + '. Retrying...');
             }
-
-            // Exponential backoff: Wait for 2^attempt seconds before retrying
-            Long waitTimeMillis = (Long) Math.pow(2, attempt) * 1000;
-            // Use System.schedule to introduce delay
-            System.schedule('WeatherApiRetry_' + DateTime.now().getTime(), '0 ' + waitTimeMillis / 1000 + ' * * * ?', new ScheduledRetryJob(endpoint));
-
-            // Break the loop for now
-            break;
         }
+
+        // After all attempts have failed, schedule a retry
+        Long waitTimeMillis = (Long) Math.pow(2, attempt) * 1000;
+        System.schedule('WeatherApiRetry_' + DateTime.now().getTime(), '0 ' + waitTimeMillis / 1000 + ' * * * ?', new ScheduledRetryJob(endpoint));
 
         system.debug('Maximum retry attempts reached. Returning null.');
         return null;
